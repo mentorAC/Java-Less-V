@@ -58,24 +58,30 @@ public class Main {
 //            }
 //
 //        }
-        int size = sc.nextInt();
-        int[] arr = new int[size];
-        Random a = new Random();
-        int counter = 0;
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = a.nextInt(-100, 100);
-            System.out.print( arr[i]  + " ");
+//        int size = sc.nextInt();
+//        int[] arr = new int[size];
+//        Random a = new Random();
+//        int counter = 0;
+//        for (int i = 0; i < arr.length; i++) {
+//            arr[i] = a.nextInt(-100, 100);
+//            System.out.print( arr[i]  + " ");
+//
+//        }
+//        System.out.println( );
+//
+//        for (int i = 0; i < arr.length; i++) {
+//            if (arr[i] < 0) {
+//                counter++;
+//            }
+//
+//
+//        }
+//        System.out.println( counter + " ");
 
-        }
-        System.out.println( );
-
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < 0) {
-                counter++;
-            }
 
 
-        }
-        System.out.println( counter + " ");
+
+
+
     }
 }
