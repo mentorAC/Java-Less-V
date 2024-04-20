@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 public class Main {
-    static int[] CreateMas( int size){
+     static int[] CreateMas( int size){
         int[] ary = new int [size];
         Random random = new Random();
         for ( int i =0;i< ary.length; i++){
@@ -93,7 +93,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
         int [][] matrix = CreateRect(4,7);
-        PrintRect(matrix);
+        PrintRect(matrix); 
+
+
+
 //        int [] ary = CreateMas(size);
 //        showMas(ary);
 //        int max = MaxFun(ary);
