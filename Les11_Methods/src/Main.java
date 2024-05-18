@@ -70,5 +70,29 @@ public class Main {
 
 //        String msg = getMessage();
 
+
+
+        //Phone
+        // -> weight
+        // -> Accum
+        //
+
+        Human human1 = new Human();
+        human1.name = "Max";
+
+        Human human2 = new Human();
+        human2.name = "Tom";
+
+
+
+
     }
+}
+
+
+class Human{
+    int age;
+    String name;
+    int height;
+    int weight;
 }
