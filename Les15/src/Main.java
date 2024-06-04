@@ -9,9 +9,76 @@ public class Main {
         Tea tea = new Tea("green");
         tea.sugarFree = false;
         tea.brewTea();
+        Rect rect = new Rect( 2, 6);
+        System.out.println(rect.Area());
+        System.out.println(rect.Perimeter());
+    }
+    int add(int a, int b){
+        return a+b;
+    }
+    double add(double a, double b ){
+        return a+b;
+    }
+    String add(String a, String b){
+        return a+b;
     }
 }
+ class Circle {
+    private double x;
+    private double y;
+    private double radius;
 
+    public Circle(){
+        this(0,0,0);
+
+    }
+     public Circle(double x, double y, double radius){
+         this.x = x;
+         this.y = y;
+         this.radius = radius;
+     }
+     public double length(){
+        return 2*Math.PI *radius;
+     }
+     public double length(double radius){
+         return 2*Math.PI *radius;
+     }
+
+}
+
+class Student{
+    private String name;
+    private int course;
+    private boolean salary;
+
+    public Student(String name, int course, boolean salary){
+       this(name,course);
+        this.salary = salary;
+    }
+    public Student(String name){
+        this.name = name;
+    }
+    public Student(String name, int course) {
+        this(name);
+        this.course = course;
+    }
+
+}
+class Rect{
+    private double length;
+    private double width;
+    public Rect(double length, double width){
+        this.length = length;
+        this.width = width;
+
+    }
+    public double Perimeter(){
+        return (length+width)*2;
+    }
+    public double Area(){
+        return length*width;
+    }
+}
 
 class Car {
     public Car(String mark){
