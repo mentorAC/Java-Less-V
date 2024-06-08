@@ -6,13 +6,17 @@ public class Main {
 //        Human human = new Human("Tom", "Amazon", 12);
 
 //        int a = 123;
-        Tea tea = new Tea("green");
-        tea.sugarFree = false;
-        tea.brewTea();
-        Rect rect = new Rect( 2, 6);
-        System.out.println(rect.Area());
-        System.out.println(rect.Perimeter());
-    }
+
+//        Tea tea = new Tea("green");
+//        tea.sugarFree = false;
+//        tea.brewTea();
+//        Rect rect = new Rect( 2, 6);
+//        System.out.println(rect.Area());
+//        System.out.println(rect.Perimeter());
+        Circle circle1 = new Circle(8, 3, 6);
+        System.out.println(circle1.toString());
+ }
+
     int add(int a, int b){
         return a+b;
     }
@@ -38,13 +42,27 @@ public class Main {
          this.radius = radius;
      }
      public double length(){
-        return 2*Math.PI *radius;
+        return length(radius);
      }
      public double length(double radius){
          return 2*Math.PI *radius;
      }
+     public Circle GetCircleCopy(){
+        return new Circle( x, y, this.radius);
+     }
+     public Circle GetCircleCopy( Circle circle){
+        return new Circle(circle.x, circle.y, circle.radius);
+     }
+     public boolean Point(double x, double y){
+        double Part = Math.pow(x - this.x,2)+ Math.pow(y- this.y,2);
+        return Part<=Math.pow(radius,2);
+     }
 
-}
+     @Override
+     public String toString() {
+         return " x: " +x + "y: "+y + "radius: "+ radius;
+     }
+ }
 
 class Student{
     private String name;
