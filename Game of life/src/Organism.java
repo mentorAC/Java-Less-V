@@ -1,5 +1,5 @@
 public class Organism {
-   private boolean isLife = true;
+   private boolean isLife = false;
    public void kill(){
       isLife = false;
    }
