@@ -1,8 +1,23 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        World world = new World(10,30);
-        world.Generate(300);
-       world.PrintMatrix();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter quantity rows: ");
+        int rows = sc.nextInt();
+        System.out.println("Enter quantity cols: ");
+        int cols = sc.nextInt();
+        System.out.println("Enter quantity alive organism: ");
+        int organism = sc.nextInt();
+
+        World world = new World(rows,cols);
+        world.Generate(organism);
+
+        while(true) {
+            world.PrintMatrix();
+            world.Step();
+        }
+
 
 //       Organism org1;
 //        Organism org2;

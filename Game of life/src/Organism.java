@@ -14,4 +14,8 @@ public class Organism {
          System.out.print(" ");
       }
    }
+
+   public boolean isLife() {
+      return isLife;
+   }
 }
