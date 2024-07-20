@@ -18,8 +18,24 @@ public class Main {
 //
 //        human_h.sayHello();
 //        human_e.sayHello();
+        Animal animal [] = new Animal[]{
+                new Cat(),
+                new Dog(),
+                new Pig(),
+                new Dog(),
+                new Pig(),
+
+        };
+        for( int i =0; i< animal.length;i ++){
+            AnimalSay(animal[i]);
+        }
+
     }
-}
+    public static void AnimalSay(Animal animal){
+        animal.Say();
+    }
+
+    }
 
 
 class Human{
@@ -63,4 +79,25 @@ class Student{
     String name;
     int age;
     boolean isHasSalary;
+}
+class Animal{
+    public void Say(){
+        System.out.println("I am animal");
+    }
+}
+class Cat extends Animal{
+    public void Say(){
+        System.out.println(" I am cat and I say meow");
+    }
+}
+class Dog extends Animal{
+    public void Say(){
+        System.out.println("I am dog and I say gav");
+    }
+}
+class Pig extends Animal{
+    @Override
+    public void Say() {
+        System.out.println("I am pig and I sar hrrr");
+    }
 }
