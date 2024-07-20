@@ -1,5 +1,5 @@
 public class Organism {
-   private boolean isLife = true;
+   private boolean isLife = false;
    public void kill(){
       isLife = false;
    }
@@ -13,5 +13,9 @@ public class Organism {
       }else{
          System.out.print(" ");
       }
+   }
+
+   public boolean isLife() {
+      return isLife;
    }
 }

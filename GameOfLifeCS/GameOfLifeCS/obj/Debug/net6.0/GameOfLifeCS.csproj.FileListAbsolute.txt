@@ -1,0 +1,15 @@
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\bin\Debug\net6.0\GameOfLifeCS.exe
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\bin\Debug\net6.0\GameOfLifeCS.deps.json
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\bin\Debug\net6.0\GameOfLifeCS.runtimeconfig.json
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\bin\Debug\net6.0\GameOfLifeCS.dll
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\bin\Debug\net6.0\ref\GameOfLifeCS.dll
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\bin\Debug\net6.0\GameOfLifeCS.pdb
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.csproj.AssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.AssemblyInfoInputs.cache
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.AssemblyInfo.cs
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.dll
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\ref\GameOfLifeCS.dll
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.pdb
+C:\Users\ASUS\Documents\GitHub\Java-Less-V\GameOfLifeCS\GameOfLifeCS\obj\Debug\net6.0\GameOfLifeCS.genruntimeconfig.cache
