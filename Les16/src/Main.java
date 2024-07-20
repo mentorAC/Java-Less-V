@@ -18,24 +18,44 @@ public class Main {
 //
 //        human_h.sayHello();
 //        human_e.sayHello();
-        Animal animal [] = new Animal[]{
-                new Cat(),
-                new Dog(),
-                new Pig(),
-                new Dog(),
-                new Pig(),
+//        Animal animal[] = new Animal[]{
+//                new Cat(),
+//                new Dog(),
+//                new Pig(),
+//                new Dog(),
+//                new Pig(),
+//
+//        };
 
-        };
-        for( int i =0; i< animal.length;i ++){
-            AnimalSay(animal[i]);
-        }
+        Cat cat = new Cat();
+        System.out.println(cat);
+
+
+//        Dog patron = new Dog();
+//        Pig pig = new Pig();
+//        Horse horse = new Horse();
+//
+//        AnimalSay(cat);
+//        AnimalSay(patron);
+//        AnimalSay(pig);
+//        AnimalSay(horse);
+
+        //Animal animal = new Animal();
+        //animal.Say();
+
+//        for (int i = 0; i < animal.length; i++) {
+//            AnimalSay(animal[i]);
+//        }
+
+
+
 
     }
-    public static void AnimalSay(Animal animal){
+
+    public static void AnimalSay(Animal animal) {
         animal.Say();
     }
-
-    }
+}
 
 
 class Human{
@@ -80,24 +100,36 @@ class Student{
     int age;
     boolean isHasSalary;
 }
-class Animal{
-    public void Say(){
-        System.out.println("I am animal");
-    }
+abstract class Animal{
+    public abstract void Say();
 }
-class Cat extends Animal{
+class Cat extends Animal
+{
+    @Override
     public void Say(){
         System.out.println(" I am cat and I say meow");
     }
+
+    @Override
+    public String toString(){
+        return "I am a cat!";
+    }
 }
-class Dog extends Animal{
+class Dog extends Animal
+{
     public void Say(){
         System.out.println("I am dog and I say gav");
     }
 }
-class Pig extends Animal{
-    @Override
+class Pig extends Animal
+{
     public void Say() {
         System.out.println("I am pig and I sar hrrr");
+    }
+}
+class Horse extends Animal
+{
+    public void Say() {
+        System.out.println("I am horse and I sar brrr");
     }
 }
