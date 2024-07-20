@@ -9,21 +9,22 @@ public class Main {
 //        //Human human1 = new Student()
 //        System.out.println(emp.company);
 
-        Human human_h = new Human();
-        human_h.name = "Tom";
-
-        Human human_e = new Employee("Apple");
-        human_e.name = "Bob";
-
-        human_h.sayHello();
-        human_e.sayHello();
+//        Human human_h = new Human();
+//        human_h.name = "Tom";
+//
+//        Human human_e = new Employee("Apple");
+//        human_e.name = "Bob";
+//        human_e.height = 2;
+//
+//        human_h.sayHello();
+//        human_e.sayHello();
     }
 }
 
 
 class Human{
-    String name;
-    private int age;
+    public String name;
+    private int Age;
     protected int height;
     void sayHello(){
         System.out.println("Hello, I am "+name);
@@ -32,25 +33,17 @@ class Human{
 
 class Employee extends Human
 {
+    String company;
+    Employee(){}
     Employee(String company){
         this.company = company;
     }
-    String company;
-
     void sayHello(){
         System.out.println("Hello, I am "+name+" and I am working at "+company);
     }
 }
 
-class Builder extends Human{
-
-}
-
-
-class Boss{
-    String name;
-    int age;
-    String company;
+class Boss extends Employee{
     int room;
 }
 
