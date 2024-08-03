@@ -125,17 +125,27 @@ class Blush extends Cosmetic{
                 //obj.
 //                Object obj = driver;
 //                System.out.println(obj.toString());
-                try {
-                    test();
+//                try {
+//                    test();
+//                }
+//                catch(Exception ex){
+//                    System.out.println(ex.getMessage());
+//                }
+                try{
+                    MyBadMethod();
                 }
-                catch(Exception ex){
-                    System.out.println(ex.getMessage());
+                catch (Exception ex){
+                    System.out.println(ex);
                 }
                 System.out.println("End");
             }
             static void test (){
                 int zero = 0;
                 int a = 2 / zero;
+            }
+            static void MyBadMethod() throws Exception{
+
+                throw new Exception();
             }
             public static boolean contains(Cosmetic[] ary, Cosmetic obj ){
                 for(int i= 0; i< ary.length; i++){
