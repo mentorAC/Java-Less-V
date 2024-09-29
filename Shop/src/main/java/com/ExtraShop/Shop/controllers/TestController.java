@@ -97,27 +97,27 @@ class Robot implements IMovable, ICook, ISpeakable
     }
 }
 
-public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
-}
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Entity
-@Table(name = "employee")
-public class Employee {
-
-    @Id
-    private Integer id;
-    private String firstName;
-    private String lastName;
-    private Integer age;
-    private String designation;
-    private String phoneNumber;
-    private LocalDate joinedOn;
-    private String address;
-    private LocalDate dateOfBirth;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-}
+//public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
+//}
+//
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Data
+//@Entity
+//@Table(name = "employee")
+//public class Employee {
+//
+////    @Id
+//    private Integer id;
+//    private String firstName;
+//    private String lastName;
+//    private Integer age;
+//    private String designation;
+//    private String phoneNumber;
+//    private LocalDate joinedOn;
+//    private String address;
+//    private LocalDate dateOfBirth;
+//    private LocalDateTime createdAt;
+//    private LocalDateTime updatedAt;
+//
+//}

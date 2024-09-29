@@ -3,8 +3,5 @@ count: {{counter}} <br>
 <button class="btn btn-primary" (click)="buttonClick()">++</button>
 <button class="btn btn-danger" (click)="buttonMinus()">--</button> -->
 
-
-@for (item of data; track $index) {
-    <app-product-card [item]="item"></app-product-card>
-}
-
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
