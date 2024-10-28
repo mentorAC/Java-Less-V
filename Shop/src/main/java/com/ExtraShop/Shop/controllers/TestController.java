@@ -1,6 +1,6 @@
 package com.ExtraShop.Shop.controllers;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
