@@ -66,6 +66,7 @@ p{
 	background: #212042;
 	margin-bottom: 20px;
 	letter-spacing: 1px;
+	color: #fff;
 	
 }
 .form-control:focus{
@@ -73,7 +74,6 @@ p{
 	border-radius: 3px;
 	box-shadow: none;
 	background: #212042;
-	color: #fff;
 	letter-spacing: 1px;
 }
 .bn{

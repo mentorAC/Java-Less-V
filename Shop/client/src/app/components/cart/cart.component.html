@@ -1,0 +1,3 @@
+
+<app-cart-item *ngFor="let item of cart" [model] = "item" (deleteHandle)="deleteItem($event)"></app-cart-item>
+<app-checkout></app-checkout>

@@ -3,6 +3,7 @@ package com.ExtraShop.Shop.controllers;
 //import com.ExtraShop.Shop.data.entities.Product;
 //import com.ExtraShop.Shop.data.repositories.ProductRepository;
 //import com.ExtraShop.Shop.models.Product;
+import com.ExtraShop.Shop.data.repositories.ProductRepository;
 import com.ExtraShop.Shop.models.Product;
 import com.ExtraShop.Shop.utils.DbUtils;
 import org.springframework.http.HttpStatus;
@@ -24,24 +25,15 @@ import java.util.List;
 @RequestMapping("/product")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
+    private final ProductRepository productRepository;
+
     //GET
     //POST
     //PUT
     //DELETE
-//    private static LinkedList<Product> List;
-    //private final ProductRepository productRepository;
-    //ProductController(ProductRepository productRepository){
-        //this.productRepository = productRepository;
-//        int[] arr = {1,2,3,4,5,6,7};
-//        Arrays.stream(arr).();
-        //Thread
-//        List = new LinkedList<>();
-//        List.add(new Product(1,"Product1", "https://picsum.photos/500", 10, 5));
-//        List.add(new Product(2,"Product2", "https://picsum.photos/500", 11, 5));
-//        List.add(new Product(3,"Product3", "https://picsum.photos/500", 20, 5));
-//        List.add(new Product(4,"Product4", "https://picsum.photos/500", 13, 5));
-//        List.add(new Product(5,"Product5", "https://picsum.photos/500", 40, 5));
-   // }
+ProductController(ProductRepository productRepository){
+    this.productRepository = productRepository;
+}
 
     @GetMapping("/get-all-product")
     public ResponseEntity GetAllProduct(){
@@ -82,27 +74,10 @@ System.out.println(ex);
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity GetById(@PathVariable int id){
 
-        Connection connection = null;
-        Statement statement = null;
+
         try{
-            connection = DbUtils.createConnection();
-            statement = connection.createStatement();
 
-            ResultSet result = statement.executeQuery("SELECT * FROM Products WHERE id = "+id);
-            Product product = null;
-            while(result.next()){
-                product = new Product();
-                product.setId(result.getInt("id"));
-                product.setName(result.getString("name"));
-                product.setDescription(result.getString("description"));
-                product.setPrice(result.getDouble("price"));
-                product.setQuantity(result.getInt("quantity"));
-                break;
-            }
-
-            result.close();
-            statement.close();
-            connection.close();
+            var product = productRepository.getProductById(id);
             if(product == null){
                 return new ResponseEntity(HttpStatus.BAD_REQUEST);
             }

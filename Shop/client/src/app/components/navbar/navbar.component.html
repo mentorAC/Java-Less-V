@@ -1,33 +1,78 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Puma</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<nav
+  class="navbar navbar-expand-xl navbar-dark bg-dark"
+  aria-label="Sixth navbar example"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Puma</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsExample06"
+      aria-controls="navbarsExample06"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExample06">
-        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  routerLink="products">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " routerLink="login">Login</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form role="search">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        </form>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarsExample06">
+      <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="products">Products</a>
+        </li>
+        <li class="nav-item" *ngIf="!(accoutnService.currentUser$ | async)">
+          <a class="nav-link" routerLink="login">Login</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Dropdown</a
+          >
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- <button class="btn"> -->
+      <i
+        *ngIf="accoutnService.currentUser$ | async"
+        routerLink="cart"
+
+        class="bi bi-cart text-white fs-4 position-relative"
+      >
+        <span
+          style="font-size: 12px"
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-secondary"
+          >{{ cartService.currentCartCount$|async }}</span
+        >
+      </i>
+      <!-- </button> -->
+
+      <button
+        class="btn btn-danger me-2 ms-5"
+        *ngIf="accoutnService.currentUser$ | async"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+      <form role="search">
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>

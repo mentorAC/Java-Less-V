@@ -1,32 +1,57 @@
-//package com.ExtraShop.Shop.data.entities;
-//
-//import jakarta.persistence.*;
-//
-//@Entity
-//@Table(name = "users")
-//public class User {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Integer id;
-//
-//    private String username;
-//    private String password;
-//    private String email;
-//    private String phone;
-//
-//    public User(String username, String password, String email, String phone){
-//        this.username = username;
-//        this.email = email;
-//        this.password = password;
-//        this.phone = phone;
-//    }
-//
-//    public int getId(){return id;}
-//    public String getUsername(){return username;}
-//    public String getEmail(){return email;}
-//    public String getPhone(){return phone;}
-//    public String getPassword(){ return password;}
-//
-//
-//
-//}
+package com.ExtraShop.Shop.data.entities;
+
+public class User {
+    private int id;
+    private String username;
+    private String email;
+    private String phone;
+    private String passwordhash;
+    private String salt;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPasswordhash() {
+        return passwordhash;
+    }
+
+    public void setPasswordhash(String passwordhash) {
+        this.passwordhash = passwordhash;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+}

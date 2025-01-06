@@ -23,19 +23,19 @@
               <div class="row gy-3 gy-md-4 overflow-hidden">
                 <div class="col-12">
                   <label for="Username" class="form-label">Username <span class="text-danger">*</span></label>
-                  <input [(ngModel)] ="username" type="text" class="form-control" name="Username" id="Username" placeholder="Username" required>
+                  <input [(ngModel)] ="model.username" type="text" class="form-control" name="Username" id="Username" placeholder="Username" required>
                 </div>
                 <div class="col-12">
                   <label for="Phone" class="form-label">Phone <span class="text-danger">*</span></label>
-                  <input [(ngModel)]= "phone" type="tel" class="form-control" name="Phone" id="Phone" placeholder="Phone" required>
+                  <input [(ngModel)]= "model.phone" type="tel" class="form-control" name="Phone" id="Phone" placeholder="Phone" required>
                 </div>
                 <div class="col-12">
                   <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                  <input [(ngModel)]= "email" type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                  <input [(ngModel)]= "model.email" type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
                 </div>
                 <div class="col-12">
                   <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                  <input [(ngModel)]="password" type="password" class="form-control" name="password" id="password" value="" required>
+                  <input [(ngModel)]="model.password" type="password" class="form-control" name="password" id="password" value="" required>
                 </div>
                 <div class="col-12">
                     <label for="repeatpassword" class="form-label">Repeat Password <span class="text-danger">*</span></label>

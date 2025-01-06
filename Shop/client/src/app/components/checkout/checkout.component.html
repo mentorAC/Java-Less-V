@@ -1,9 +1,13 @@
-<div class="checkout-container">
+<div class="checkout-container container">
     <h2>Оформление заказа</h2>
     <form id="checkout-form">
       <div class="form-group">
         <label for="name">Имя</label>
         <input type="text" id="name" class="form-control" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Номер телефону</label>
+        <input type="phone" id="phone" class="form-control" name="phone" required>
       </div>
   
       <div class="form-group">
@@ -31,24 +35,5 @@
     </form>
   </div>
   
-  <script>
-    document.getElementById('checkout-form').addEventListener('submit', function(event) {
-      event.preventDefault(); 
   
-      
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const address = document.getElementById('address').value;
-      const paymentMethod = document.getElementById('payment').value;
-  
-      
-      console.log('Имя:', name);
-      console.log('Электронная почта:', email);
-      console.log('Адрес:', address);
-      console.log('Способ оплаты:', paymentMethod);
-  
-      
-      alert('Заказ успешно оформлен!');
-    });
-  </script>
   
