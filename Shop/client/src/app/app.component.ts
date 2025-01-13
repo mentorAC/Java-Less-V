@@ -4,11 +4,12 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartItemComponent } from "./components/cart/cart-item/cart-item.component";
 import { AccountService } from './services/account.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ProductCardComponent, NavbarComponent, CartItemComponent],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -17,6 +18,15 @@ export class AppComponent {
     const storageUser = localStorage.getItem("user");
     if(storageUser){
       const user = JSON.parse(storageUser);
+      const decoded = jwtDecode(user.token);
+      if(decoded && new Date((decoded as any).exp*1000)< new Date()){
+        localStorage.removeItem("user")
+        return;
+
+
+      }
+
+
       accountService.setCurrentUser(user);
     }
   }
