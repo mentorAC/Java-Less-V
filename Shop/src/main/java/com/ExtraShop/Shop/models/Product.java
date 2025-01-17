@@ -7,6 +7,7 @@ public class Product {
     private int id;
     private String photoURL;
     private String description;
+
     public Product(int id, String name, String photoURL, double price,int quantity, String description){
         this.id= id;
         this.name = name;
@@ -62,5 +63,8 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setUserId(int userid) {
     }
 }
