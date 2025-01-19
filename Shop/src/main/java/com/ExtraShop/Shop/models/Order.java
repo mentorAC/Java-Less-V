@@ -3,18 +3,21 @@ package com.ExtraShop.Shop.models;
 public class Order {
     private int id;
     private int userId;
-    private double statusAmount;
+    private double totalAmount;
     private int statusId;
     private String deliveryAddress;
     private String email;
     private int paymentTypeId;
     private String phone;
+    private OrderStatus status;
+    private OrderPaymentType type;
+
 
 
 public Order(int id, int userId, double statusAmount, int statusId, String deliveryAddress, String email, int paymentTypeId, String phone){
     this.id= id;
     this.userId = userId;
-    this.statusAmount = statusAmount;
+    this.totalAmount = statusAmount;
     this.statusId = statusId;
     this.deliveryAddress = deliveryAddress;
     this.email = email;
@@ -37,12 +40,12 @@ public Order(int id, int userId, double statusAmount, int statusId, String deliv
         this.userId = userId;
     }
 
-    public double getStatusAmount() {
-        return statusAmount;
+    public double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setStatusAmount(int statusAmount) {
-        this.statusAmount = statusAmount;
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public int getStatusId() {
@@ -83,6 +86,22 @@ public Order(int id, int userId, double statusAmount, int statusId, String deliv
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public OrderPaymentType getType() {
+        return type;
+    }
+
+    public void setType(OrderPaymentType type) {
+        this.type = type;
     }
 }
 
