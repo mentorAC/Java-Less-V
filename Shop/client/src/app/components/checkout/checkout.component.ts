@@ -11,23 +11,20 @@
 
 // }
 import { Component, AfterViewInit } from '@angular/core';
+import { OrderModel } from '../../models/order.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
+  imports :[FormsModule],
 
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements AfterViewInit {
-
-  ngAfterViewInit() {
-    const checkoutForm = document.getElementById('checkout-form');
-
-    if (checkoutForm) {
-      checkoutForm.addEventListener('submit', this.submitOrder);
-    }
-  }
+export class CheckoutComponent  {
+model : OrderModel = {} as OrderModel
+  
 
   submitOrder(event: Event) {
     event.preventDefault(); 

@@ -1,5 +1,6 @@
 package com.ExtraShop.Shop.data.repositories;
 
+import com.ExtraShop.Shop.models.CartItem;
 import com.ExtraShop.Shop.models.Order;
 import com.ExtraShop.Shop.utils.DbUtils;
 import org.springframework.http.HttpStatus;
@@ -18,27 +19,39 @@ import java.sql.Statement;
 @Service
 public class OrderRepository  {
     private final DbContextService dbContextService;
+    private final CartRepository cartRepository;
 
-    public OrderRepository(DbContextService dbContextService){
+    public OrderRepository(DbContextService dbContextService, CartRepository cartRepository){
         this.dbContextService = dbContextService;
+        this.cartRepository = cartRepository;
     }
     public Order addOrder(Order order) throws Exception {
         Statement statement = dbContextService.getConnection().createStatement();
         int id = 0;
-        String query = "INSERT INTO orders (user_id, total_amount, status_id, delivery_address, " +
-                "email, payment_type_id, phone) VALUES (" +
-                order.getUserId() + ", " +
-                calculateTotalAmount(order.getUserId()) + ", " +
-                1 + ", '" +
-                order.getDeliveryAddress() + "', '" +
-                order.getEmail() + "', " +
-                order.getPaymentTypeId() + ", '" +
-                order.getPhone() + "')";
-        ResultSet result = statement.executeQuery("select lastval()");
-        if (result.next()) {
-            id = result.getInt(1);
+        try {
+            String query = "INSERT INTO orders (user_id, total_amount, status_id, delivery_address, " +
+                    "email, payment_type_id, phone) VALUES (" +
+                    order.getUserId() + ", " +
+                    calculateTotalAmount(order.getUserId()) + ", " +
+                    1 + ", '" +
+                    order.getDeliveryAddress() + "', '" +
+                    order.getEmail() + "', " +
+                    order.getPaymentTypeId() + ", '" +
+                    order.getPhone() + "')";
+            ResultSet result = statement.executeQuery("select lastval()");
+            if (result.next()) {
+                id = result.getInt(1);
+            }
+            var cartItems = cartRepository.GetCart(order.getUserId());
+            String insertOrderItemsQuery = "INSERT INTO order_items (order_id, product_id, quantity, price ) VALUE ";
+            for (CartItem item : cartItems) {
+                insertOrderItemsQuery += "(" + id + "," + item.getProductId() + "," + item.getQuantity() + "," + item.getProduct().getPrice() * item.getQuantity() + "),";
+            }
+            statement.executeUpdate(insertOrderItemsQuery);
+            statement.close();
+        }catch(Exception ex){
+            dbContextService.rollback();
         }
-        statement.close();
 
 
         return GetOrderById(id);
