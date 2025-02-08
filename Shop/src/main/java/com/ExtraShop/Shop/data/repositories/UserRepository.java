@@ -1,10 +1,9 @@
 package com.ExtraShop.Shop.data.repositories;
 
-import com.ExtraShop.Shop.data.entities.User;
 import com.ExtraShop.Shop.utils.DbUtils;
 import com.ExtraShop.Shop.utils.PasswordHandler;
 import org.springframework.stereotype.Service;
-
+import com.ExtraShop.Shop.models.User;
 import java.sql.Connection;
 import java.sql.Statement;
 

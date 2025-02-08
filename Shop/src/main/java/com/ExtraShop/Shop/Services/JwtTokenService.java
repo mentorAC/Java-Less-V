@@ -1,6 +1,6 @@
 package com.ExtraShop.Shop.Services;
 
-import com.ExtraShop.Shop.data.entities.User;
+import com.ExtraShop.Shop.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

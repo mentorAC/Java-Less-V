@@ -1,4 +1,4 @@
-package com.ExtraShop.Shop.data.entities;
+package com.ExtraShop.Shop.models;
 
 public class User {
     private int id;
