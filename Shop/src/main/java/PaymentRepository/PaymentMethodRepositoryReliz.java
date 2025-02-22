@@ -3,7 +3,9 @@ package PaymentRepository;
 import com.ExtraShop.Shop.data.repositories.DbContextService;
 import com.ExtraShop.Shop.models.PaymentMethod;
 
+import java.sql.Array;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class PaymentMethodRepositoryReliz {
     private final DbContextService dbContextService;
@@ -20,6 +22,20 @@ public class PaymentMethodRepositoryReliz {
         return method;
 
 
+    }
+    public ArrayList<PaymentMethod>  getAllMethod() throws Exception {
+        var statement = dbContextService.getConnection().createStatement();
+        ResultSet result = statement.executeQuery("SELECT * FROM Paymant_types ");
+        ArrayList<PaymentMethod> list = new ArrayList<>();
+        while (result.next()){
+            PaymentMethod method = new PaymentMethod();
+            method.setId(result.getInt("id"));
+            method.setName(result.getString("name"));
+            list.add(method);
+        }
+        statement.close();
+        result.close();
+        return list;
     }
 
     public PaymentMethod create (String payment)throws Exception{

@@ -1,50 +1,56 @@
 package com.ExtraShop.Shop.controllers;
 
-
-import com.example.payment.model.PaymentMethod;
-import com.example.payment.repository.PaymentMethodRepository;
+import PaymentRepository.PaymentMethodRepositoryReliz;
+import com.ExtraShop.Shop.models.PaymentMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/payments")
+@RequestMapping("/payments")
 public class PaymentMethodController {
 
-    private final PaymentMethodRepository repository;
+    private final PaymentMethodRepositoryReliz repository;
 
-    public PaymentMethodController(PaymentMethodRepository repository) {
+    public PaymentMethodController(PaymentMethodRepositoryReliz repository) {
         this.repository = repository;
     }
 
     @GetMapping
-    public List<PaymentMethod> getAllPaymentMethods() {
-        return repository.getAllPaymentMethods();
+    public ResponseEntity getAllPaymentMethods() {
+        try{
+            return ResponseEntity.ok(repository.getAllMethod());
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PaymentMethod> getPaymentMethodById(@PathVariable Long id) {
-        Optional<PaymentMethod> paymentMethod = repository.getPaymentMethodById(id);
-        return paymentMethod.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<PaymentMethod> getPaymentMethodById(@PathVariable int id) {
+       try {
+           PaymentMethod paymentMethod = repository.getById(id);
+           return ResponseEntity.ok(paymentMethod);
+       } catch (Exception ex) {
+           System.out.println(ex);
+           return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+       }
+
     }
 
     @PostMapping
-    public ResponseEntity<String> createPaymentMethod(@RequestBody PaymentMethod paymentMethod) {
-        repository.createPaymentMethod(paymentMethod);
-        return ResponseEntity.ok("Способ оплаты успешно добавлен");
+    public ResponseEntity<PaymentMethod> create(@RequestBody PaymentMethod paymentMethod) {
+        try {
+          var result =  repository.create(paymentMethod.getName());
+            return ResponseEntity.ok(result);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updatePaymentMethod(@PathVariable Long id, @RequestBody PaymentMethod paymentMethod) {
-        repository.updatePaymentMethod(id, paymentMethod);
-        return ResponseEntity.ok("Способ оплаты обновлён");
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePaymentMethod(@PathVariable Long id) {
-        repository.deletePaymentMethod(id);
-        return ResponseEntity.ok("Способ оплаты удалён");
-    }
 }

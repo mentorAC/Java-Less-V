@@ -5,11 +5,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartItemComponent } from "./components/cart/cart-item/cart-item.component";
 import { AccountService } from './services/account.service';
 import { jwtDecode } from 'jwt-decode';
+import { PaymentCrudComponent } from "./components/admin/payment-crud/payment-crud.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, PaymentCrudComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
