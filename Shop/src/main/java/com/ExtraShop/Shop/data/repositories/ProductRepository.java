@@ -22,11 +22,11 @@ public class ProductRepository {
         this.dbContextService = dbContextService;
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts() throws Exception{
         List<Product> products = new LinkedList<>();
-        try (Connection connection = dbContextService.getConnection();
+        Connection connection = dbContextService.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet result = statement.executeQuery("SELECT * FROM Products")) {
+             ResultSet result = statement.executeQuery("SELECT * FROM Products");
 
             while (result.next()) {
                 Product product = new Product();
@@ -37,9 +37,9 @@ public class ProductRepository {
                 product.setQuantity(result.getInt("quantity"));
                 products.add(product);
             }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+            result.close();
+            statement.close();
+
         return products;
     }
 
@@ -61,10 +61,10 @@ public class ProductRepository {
         return product;
     }
 
-    public int addProduct(Product product) {
+    public int addProduct(Product product) throws Exception {
         int id = 0;
-        try (Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement()) {
+         Connection connection = dbContextService.getConnection();
+             Statement statement = connection.createStatement();
 
             statement.executeUpdate(
                     "INSERT INTO products (name, price, description, quantity) VALUES ('" +
@@ -77,26 +77,22 @@ public class ProductRepository {
             if (result.next()) {
                 id = result.getInt(1);
             }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+            result.close();
+            statement.close();
+
         return id;
     }
 
-    public boolean deleteProduct(int id) {
-        try (Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement()) {
+    public void deleteProduct(int id) throws Exception {
+        Connection connection = dbContextService.getConnection();
+             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM products WHERE id = " + id);
-            return true;
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return false;
+        statement.close();
     }
 
-    public boolean updateProduct(int id, Product product) {
-        try (Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement()) {
+    public void updateProduct(int id, Product product) throws Exception{
+        Connection connection = dbContextService.getConnection();
+             Statement statement = connection.createStatement();
 
             statement.executeUpdate(
                     "UPDATE products SET " +
@@ -105,10 +101,8 @@ public class ProductRepository {
                             "description = '" + product.getDescription() + "', " +
                             "quantity = " + product.getQuantity() +
                             " WHERE id = " + id);
-            return true;
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return false;
+
+            statement.close();
     }
+
 }

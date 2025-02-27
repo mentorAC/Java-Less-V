@@ -6,12 +6,16 @@ import { environment } from '../../environment/environment';
   providedIn: 'root'
 })
 export class PaymentCrudService {
-  private readonly baseUrl = environment.apiUrl + 'paymant_type/';
+  private readonly baseUrl = environment.apiUrl + 'payments/';
   constructor(private httpClient: HttpClient) {
    }
    
    public  create(name: string) {
     return this.httpClient.post(this.baseUrl,{name})
     
+   }
+   public get(){
+    return this.httpClient.get<any>(this.baseUrl)
+
    }
 }

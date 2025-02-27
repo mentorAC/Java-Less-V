@@ -1,17 +1,15 @@
 package com.ExtraShop.Shop.controllers;
 
-import PaymentRepository.PaymentMethodRepositoryReliz;
+import com.ExtraShop.Shop.data.repositories.PaymentMethodRepositoryReliz;
 import com.ExtraShop.Shop.models.PaymentMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/payments")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PaymentMethodController {
 
     private final PaymentMethodRepositoryReliz repository;

@@ -13,9 +13,12 @@ export class PaymentCrudComponent {
   name: string = "";
    buttonClick() {
     this.paymentservice.create(this.name).subscribe();
+    
 
     
   }
-  constructor(private paymentservice: PaymentCrudService){}
+  constructor(private paymentservice: PaymentCrudService){
+  this.paymentservice.get().subscribe(res=>console.log(res));
+  }
 
 }

@@ -9,12 +9,19 @@ import java.sql.Statement;
 @Service
 public class DbContextService {
     private static Connection connection;
-    public void init()throws Exception{
-        connection = DbUtils.createConnection();
-        connection.setAutoCommit(false);
+    public void init(){
+        try {
+            connection = DbUtils.createConnection();
+            connection.setAutoCommit(false);
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
     }
-    public void rollback()throws Exception{
-        connection.rollback();
+    public void rollback(){
+        try {
+            connection.rollback();
+        }catch(Exception  ex){System.out.println(ex);
+        }
     }
 
     public Connection getConnection() {return connection;}

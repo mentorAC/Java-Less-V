@@ -1,12 +1,11 @@
-package PaymentRepository;
+package com.ExtraShop.Shop.data.repositories;
 
-import com.ExtraShop.Shop.data.repositories.DbContextService;
 import com.ExtraShop.Shop.models.PaymentMethod;
+import org.springframework.stereotype.Service;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+@Service
 public class PaymentMethodRepositoryReliz {
     private final DbContextService dbContextService;
     public PaymentMethod getById(int id) throws Exception{
