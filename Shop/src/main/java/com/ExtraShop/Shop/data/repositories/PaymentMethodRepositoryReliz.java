@@ -3,13 +3,13 @@ package com.ExtraShop.Shop.data.repositories;
 import com.ExtraShop.Shop.models.PaymentMethod;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 @Service
 public class PaymentMethodRepositoryReliz {
-    private final DbContextService dbContextService;
-    public PaymentMethod getById(int id) throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public PaymentMethod getById(int id, Connection connection) throws Exception{
+        var statement = connection.createStatement();
         ResultSet result = statement.executeQuery("SELECT * FROM Paymant_types WHERE id = "+id);
         PaymentMethod method = null;
         while(result.next()){
@@ -22,8 +22,8 @@ public class PaymentMethodRepositoryReliz {
 
 
     }
-    public ArrayList<PaymentMethod>  getAllMethod() throws Exception {
-        var statement = dbContextService.getConnection().createStatement();
+    public ArrayList<PaymentMethod>  getAllMethod(Connection connection) throws Exception {
+        var statement = connection.createStatement();
         ResultSet result = statement.executeQuery("SELECT * FROM Paymant_types ");
         ArrayList<PaymentMethod> list = new ArrayList<>();
         while (result.next()){
@@ -37,8 +37,8 @@ public class PaymentMethodRepositoryReliz {
         return list;
     }
 
-    public PaymentMethod create (String payment)throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public PaymentMethod create (String payment,Connection connection)throws Exception{
+        var statement = connection.createStatement();
         String insertPaymentTypeQuery = "INSERT INTO paymant_types (name) VALUE ('"+payment+"')";
         statement.executeUpdate(insertPaymentTypeQuery);
         ResultSet result = statement.executeQuery("select lastval()");
@@ -54,7 +54,19 @@ public class PaymentMethodRepositoryReliz {
         return method;
 
     }
-    public PaymentMethodRepositoryReliz(DbContextService dbContextService){
-        this.dbContextService = dbContextService;
+    public void update(int id, String name,Connection connection) throws Exception {
+        var statement = connection.createStatement();
+        String updateQuery = "UPDATE Paymant_types SET name = '" + name + "' WHERE id = " + id;
+        statement.executeUpdate(updateQuery);
+        statement.close();
     }
+    public void delete(int id, Connection connection) throws Exception {
+        var statement = connection.createStatement();
+        String deleteQuery = "DELETE FROM Paymant_types WHERE id = " + id;
+        statement.executeUpdate(deleteQuery);
+        statement.close();
+    }
+
+
+
 }

@@ -14,11 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.charset.StandardCharsets;
-import java.security.*;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.util.Base64;
 
 @RestController
 @RequestMapping("/account")

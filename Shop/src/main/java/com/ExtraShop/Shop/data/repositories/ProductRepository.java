@@ -16,93 +16,89 @@ import java.util.List;
 
 @Service
 public class ProductRepository {
-    private final DbContextService dbContextService;
+    // private final DbContextService dbContextService;
 
-    public ProductRepository(DbContextService dbContextService) {
-        this.dbContextService = dbContextService;
-    }
+//    public ProductRepository(DbContextService dbContextService) {
+//        this.dbContextService = dbContextService;
+//    }
 
-    public List<Product> getAllProducts() throws Exception{
+    public List<Product> getAllProducts(Connection connection) throws Exception {
         List<Product> products = new LinkedList<>();
-        Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet result = statement.executeQuery("SELECT * FROM Products");
+        Statement statement = connection.createStatement();
+        ;
+        ResultSet result = statement.executeQuery("SELECT * FROM Products");
 
-            while (result.next()) {
-                Product product = new Product();
-                product.setId(result.getInt("id"));
-                product.setName(result.getString("name"));
-                product.setDescription(result.getString("description"));
-                product.setPrice(result.getDouble("price"));
-                product.setQuantity(result.getInt("quantity"));
-                products.add(product);
-            }
-            result.close();
-            statement.close();
+        while (result.next()) {
+            Product product = new Product();
+            product.setId(result.getInt("id"));
+            product.setName(result.getString("name"));
+            product.setDescription(result.getString("description"));
+            product.setPrice(result.getDouble("price"));
+            product.setQuantity(result.getInt("quantity"));
+            products.add(product);
+        }
+        result.close();
+        statement.close();
 
         return products;
     }
 
-    public Product getProductById(int id) throws Exception {
+    public Product getProductById(int id, Connection connection) throws Exception {
         Product product = null;
-        try (Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet result = statement.executeQuery("SELECT * FROM Products WHERE id = " + id)) {
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("SELECT * FROM Products WHERE id = " + id);
 
-            if (result.next()) {
-                product = new Product();
-                product.setId(result.getInt("id"));
-                product.setName(result.getString("name"));
-                product.setDescription(result.getString("description"));
-                product.setPrice(result.getDouble("price"));
-                product.setQuantity(result.getInt("quantity"));
-            }
+        if (result.next()) {
+            product = new Product();
+            product.setId(result.getInt("id"));
+            product.setName(result.getString("name"));
+            product.setDescription(result.getString("description"));
+            product.setPrice(result.getDouble("price"));
+            product.setQuantity(result.getInt("quantity"));
         }
+
         return product;
     }
 
-    public int addProduct(Product product) throws Exception {
+    public int addProduct(Product product, Connection connection) throws Exception {
         int id = 0;
-         Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement();
+        Statement statement = connection.createStatement();
 
-            statement.executeUpdate(
-                    "INSERT INTO products (name, price, description, quantity) VALUES ('" +
-                            product.getName() + "', " +
-                            product.getPrice() + ", '" +
-                            product.getDescription() + "', " +
-                            product.getQuantity() + ")", Statement.RETURN_GENERATED_KEYS);
+        statement.executeUpdate(
+                "INSERT INTO products (name, price, description, quantity) VALUES ('" +
+                        product.getName() + "', " +
+                        product.getPrice() + ", '" +
+                        product.getDescription() + "', " +
+                        product.getQuantity() + ")", Statement.RETURN_GENERATED_KEYS);
 
-            ResultSet result = statement.getGeneratedKeys();
-            if (result.next()) {
-                id = result.getInt(1);
-            }
-            result.close();
-            statement.close();
+        ResultSet result = statement.getGeneratedKeys();
+        if (result.next()) {
+            id = result.getInt(1);
+        }
+        result.close();
+        statement.close();
 
         return id;
     }
 
-    public void deleteProduct(int id) throws Exception {
-        Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM products WHERE id = " + id);
+    public void deleteProduct(int id, Connection connection) throws Exception {
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM products WHERE id = " + id);
         statement.close();
     }
 
-    public void updateProduct(int id, Product product) throws Exception{
-        Connection connection = dbContextService.getConnection();
-             Statement statement = connection.createStatement();
+    public void updateProduct(int id, Product product, Connection connection) throws Exception {
+        Statement statement = connection.createStatement();
 
-            statement.executeUpdate(
-                    "UPDATE products SET " +
-                            "name = '" + product.getName() + "', " +
-                            "price = " + product.getPrice() + ", " +
-                            "description = '" + product.getDescription() + "', " +
-                            "quantity = " + product.getQuantity() +
-                            " WHERE id = " + id);
+        statement.executeUpdate(
+                "UPDATE products SET " +
+                        "name = '" + product.getName() + "', " +
+                        "price = " + product.getPrice() + ", " +
+                        "description = '" + product.getDescription() + "', " +
+                        "quantity = " + product.getQuantity() +
+                        " WHERE id = " + id);
 
-            statement.close();
+        statement.close();
     }
 
 }

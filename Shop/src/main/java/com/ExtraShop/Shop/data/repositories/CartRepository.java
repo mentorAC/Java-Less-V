@@ -14,35 +14,30 @@ import java.util.LinkedList;
 public class CartRepository {
 
     private final ProductRepository productRepository;
-    private final DbContextService dbContextService;
 
-    CartRepository(ProductRepository productRepository, DbContextService dbContextService)throws Exception{
+    CartRepository(ProductRepository productRepository){
         this.productRepository = productRepository;
 
-
-        this.dbContextService = dbContextService;
     }
 
 
-    public void add(int userId, int productId)throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public void add(int userId, int productId,Connection connection)throws Exception{
+        var statement = connection.createStatement();
         statement.executeUpdate(
                 "INSERT INTO \"cartitem\" (userId, productId)" +
                         "VALUES ("+userId+", "+productId+")");
         statement.close();
     }
-    public void delete(int userId, int productId) throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public void delete(int userId, int productId,Connection connection) throws Exception{
+        var statement = connection.createStatement();
         statement.executeUpdate(
                 "DELETE FROM  \"cartitem\" WHERE userId = " +userId+" AND productId="+productId
         );
         statement.close();
     }
 
-    public boolean isProductExists(int userId, int productId)throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
-
-
+    public boolean isProductExists(int userId, int productId, Connection connection)throws Exception{
+        var statement = connection.createStatement();
         ResultSet result =statement.executeQuery(
                 "select count(*) as is_exists from cartitem " +
                 "where userId = "+userId+" and productId = "+productId);
@@ -52,24 +47,24 @@ public class CartRepository {
         statement.close();
         return response;
     }
-    public void incitem(int userId, int productId) throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public void incitem(int userId, int productId, Connection connection) throws Exception{
+        var statement = connection.createStatement();
         statement.executeUpdate(
         "UPDATE cartitem set quantity = quantity+1 " +
                 "where userId = "+userId+" and productId = "+productId);
         statement.close();
 
     }
-    public void decitem(int userId, int productId) throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public void decitem(int userId, int productId, Connection connection) throws Exception{
+        var statement = connection.createStatement();
         statement.executeUpdate(
                 "UPDATE cartitem set quantity = quantity-1 " +
                         "where userId = "+userId+" and productId = "+productId);
         statement.close();
 
     }
-    public CartItem GetCartItem(int userId, int productId)throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public CartItem GetCartItem(int userId, int productId,Connection connection)throws Exception{
+        var statement = connection.createStatement();
        var result = statement.executeQuery(
                 "select * from cartitem where userId = "+userId+" and productId = "+productId
         );
@@ -83,8 +78,8 @@ public class CartRepository {
 
     }
 
-    public LinkedList<CartItem> GetCart(int userId)throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public LinkedList<CartItem> GetCart(int userId,Connection connection)throws Exception{
+        var statement = connection.createStatement();
 
         ResultSet result =statement.executeQuery(
                 "select *  from cartitem " + "where userId = "+userId);
@@ -93,7 +88,7 @@ public class CartRepository {
             CartItem cartItem = new CartItem();
             cartItem.setQuantity(result.getInt("quantity"));
             cartItem.setProductId(result.getInt("productId"));
-            cartItem.setProduct(productRepository.getProductById(cartItem.getProductId()));
+            cartItem.setProduct(productRepository.getProductById(cartItem.getProductId(),connection));
             list.add(cartItem);
         }
         result.close();
