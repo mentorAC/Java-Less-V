@@ -13,6 +13,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { OrderModel } from '../../models/order.model';
 import { FormsModule } from '@angular/forms';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -24,24 +25,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class CheckoutComponent  {
 model : OrderModel = {} as OrderModel
-  
+  constructor(private orderService : OrderService){}
 
-  submitOrder(event: Event) {
-    event.preventDefault(); 
+  submitOrder() {
+    this.orderService.createOrder(this.model)
 
-    
-    const name = (document.getElementById('name') as HTMLInputElement).value;
-    const email = (document.getElementById('email') as HTMLInputElement).value;
-    const address = (document.getElementById('address') as HTMLInputElement).value;
-    const paymentMethod = (document.getElementById('payment') as HTMLSelectElement).value;
-
-    
-    console.log('Имя:', name);
-    console.log('Электронная почта:', email);
-    console.log('Адрес:', address);
-    console.log('Способ оплаты:', paymentMethod);
-
-    
-    alert('Заказ успешно оформлен!');
   }
 }

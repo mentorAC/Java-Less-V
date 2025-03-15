@@ -12,52 +12,71 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-
+import java.util.LinkedList;
 
 
 @Service
 public class OrderRepository  {
-    private final DbContextService dbContextService;
+
     private final CartRepository cartRepository;
 
-    public OrderRepository(DbContextService dbContextService, CartRepository cartRepository){
-        this.dbContextService = dbContextService;
+    public OrderRepository( CartRepository cartRepository){
         this.cartRepository = cartRepository;
     }
-    public Order addOrder(Order order) throws Exception {
-        Statement statement = dbContextService.getConnection().createStatement();
-        int id = 0;
-        try {
-            String query = "INSERT INTO orders (user_id, total_amount, status_id, delivery_address, " +
-                    "email, payment_type_id, phone) VALUES (" +
-                    order.getUserId() + ", " +
-                    calculateTotalAmount(order.getUserId()) + ", " +
-                    1 + ", '" +
-                    order.getDeliveryAddress() + "', '" +
-                    order.getEmail() + "', " +
-                    order.getPaymentTypeId() + ", '" +
-                    order.getPhone() + "')";
-            ResultSet result = statement.executeQuery("select lastval()");
-            if (result.next()) {
-                id = result.getInt(1);
+    public LinkedList<Order> getAllOrders(int userId,Connection connection)throws Exception{
+        var orders = new LinkedList<Order>();
+
+
+           Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery("SELECT * FROM orders where userId ="+ userId);
+            while (result.next()) {
+                var order = new Order();
+                order.setId(result.getInt("id"));
+                order.setUserId(result.getInt("userId"));
+                order.setTotalAmount(result.getInt("totalAmount"));
+                order.setStatusId(result.getInt("statusId"));
+                order.setDeliveryAddress(result.getString("deliveryAddress"));
+                order.setEmail(result.getString("email"));
+                order.setPaymentTypeId(result.getInt("paymentTypeId"));
+                order.setPhone(result.getString("phone"));
+                orders.add(order);
             }
-            var cartItems = cartRepository.GetCart(order.getUserId());
-            String insertOrderItemsQuery = "INSERT INTO order_items (order_id, product_id, quantity, price ) VALUE ";
-            for (CartItem item : cartItems) {
-                insertOrderItemsQuery += "(" + id + "," + item.getProductId() + "," + item.getQuantity() + "," + item.getProduct().getPrice() * item.getQuantity() + "),";
-            }
-            statement.executeUpdate(insertOrderItemsQuery);
+
+            result.close();
             statement.close();
-        }catch(Exception ex){
-            dbContextService.rollback();
+           return orders;
+}
+    public Order addOrder(Order order, Connection connection) throws Exception {
+        Statement statement = connection.createStatement();
+        int id = 0;
+
+        String query = "INSERT INTO orders (user_id, total_amount, status_id, delivery_address, " +
+                "email, payment_type_id, phone) VALUES (" +
+                order.getUserId() + ", " +
+                calculateTotalAmount(order.getUserId(), connection) + ", " +
+                1 + ", '" +
+                order.getDeliveryAddress() + "', '" +
+                order.getEmail() + "', " +
+                order.getPaymentTypeId() + ", '" +
+                order.getPhone() + "')";
+        ResultSet result = statement.executeQuery("select lastval()");
+        if (result.next()) {
+            id = result.getInt(1);
         }
+        var cartItems = cartRepository.GetCart(order.getUserId(), connection);
+        String insertOrderItemsQuery = "INSERT INTO order_items (order_id, product_id, quantity, price ) VALUE ";
+        for (CartItem item : cartItems) {
+            insertOrderItemsQuery += "(" + id + "," + item.getProductId() + "," + item.getQuantity() + "," + item.getProduct().getPrice() * item.getQuantity() + "),";
+        }
+        statement.executeUpdate(insertOrderItemsQuery);
+        statement.close();
 
 
-        return GetOrderById(id);
+        return GetOrderById(id, connection);
     }
-        public Order GetOrderById( int id) throws Exception {
-            var preparedStatement = dbContextService.getConnection().createStatement();;
+        public Order GetOrderById( int id, Connection connection) throws Exception {
+            var preparedStatement = connection.createStatement();;
 
                 String query = "SELECT * FROM orders WHERE id = ?";
                 ResultSet result = preparedStatement.executeQuery(query);
@@ -85,8 +104,8 @@ public class OrderRepository  {
             }
 
 
-    private double calculateTotalAmount(int userid) throws Exception {
-        var statement = dbContextService.getConnection().createStatement();
+    private double calculateTotalAmount(int userid, Connection connection) throws Exception {
+        var statement = connection.createStatement();
        var result = statement.executeQuery("SELECT sum( cartitem.quantity * price) as totalAmount FROM cartitem \n" +
                 "JOIN products on productid = id\n" +
                 "WHERE userid = "+ userid);
@@ -97,8 +116,8 @@ public class OrderRepository  {
         return totalAmount;
 
     }
-    public Order getOrderById(int id)throws Exception{
-        var statement = dbContextService.getConnection().createStatement();
+    public Order getOrderById(int id, Connection connection)throws Exception{
+        var statement = connection.createStatement();
         ResultSet result = statement.executeQuery("SELECT * FROM Products WHERE id = "+id);
         Order order = null;
         while(result.next()){

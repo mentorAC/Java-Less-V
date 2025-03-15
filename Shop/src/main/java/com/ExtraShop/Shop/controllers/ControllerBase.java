@@ -1,8 +1,11 @@
 package com.ExtraShop.Shop.controllers;
 
+import com.ExtraShop.Shop.Services.JwtTokenService;
 import com.ExtraShop.Shop.utils.DbUtils;
+import org.apache.el.parser.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,5 +41,15 @@ public class ControllerBase {
             System.out.println(ex);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    protected boolean Authorization(JwtTokenService tokenService, String token) {
+        try {
+            if (!tokenService.isTokenValid(token)) {
+                return false;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
     }
 }

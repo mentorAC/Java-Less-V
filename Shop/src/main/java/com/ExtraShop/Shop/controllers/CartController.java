@@ -24,7 +24,7 @@ public class CartController extends ControllerBase {
 
         return Handler(connection ->{
             var token = header.split(" ")[1];
-            if (!Authorization(token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            if (!Authorization(tokenService,token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
             var userId = tokenService.extractUserId(token);
             cartRepository.add(userId,productId,connection);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -37,7 +37,7 @@ public class CartController extends ControllerBase {
     public ResponseEntity delete (@PathVariable int productId, @RequestHeader(Constants.AUTH_HEADER) String header ) {
         return Handler(connection -> {
             var token = header.split(" ")[1];
-            if (!Authorization(token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            if (!Authorization(tokenService, token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
             var userId = tokenService.extractUserId(token);
             if (!cartRepository.isProductExists(userId, productId,connection)) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -52,7 +52,7 @@ public class CartController extends ControllerBase {
     public ResponseEntity decreaseQuantity(@PathVariable int productId, @RequestHeader(Constants.AUTH_HEADER) String header) {
         return Handler(connection -> {
             var token = header.split(" ")[1];
-            if (!Authorization(token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            if (!Authorization(tokenService,token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
             var userId = tokenService.extractUserId(token);
             if (!cartRepository.isProductExists(userId, productId, connection)) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,7 +74,7 @@ public class CartController extends ControllerBase {
     public ResponseEntity increaseQuantity(@PathVariable int productId, @RequestHeader(Constants.AUTH_HEADER) String header) {
         return Handler(connection -> {
             var token = header.split(" ")[1];
-            if (!Authorization(token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            if (!Authorization(tokenService,token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
             var userId = tokenService.extractUserId(token);
             if (!cartRepository.isProductExists(userId, productId, connection)) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -90,20 +90,11 @@ public class CartController extends ControllerBase {
     public ResponseEntity GetCart(@RequestHeader(Constants.AUTH_HEADER) String header) {
         return Handler(connection -> {
             var token = header.split(" ")[1];
-            if (!Authorization(token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            if (!Authorization(tokenService, token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
             var userId = tokenService.extractUserId(token);
             return ResponseEntity.ok(cartRepository.GetCart(userId, connection));
         });
     }
 
-    private boolean Authorization(String token) {
-        try {
-            if (!tokenService.isTokenValid(token)) {
-                return false;
-            }
-        } catch (Exception ex) {
-            return false;
-        }
-        return true;
-    }
+
 }
