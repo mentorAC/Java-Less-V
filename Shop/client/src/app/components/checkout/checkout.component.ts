@@ -14,6 +14,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { OrderModel } from '../../models/order.model';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../services/order.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
@@ -25,10 +26,14 @@ import { OrderService } from '../../services/order.service';
 })
 export class CheckoutComponent  {
 model : OrderModel = {} as OrderModel
-  constructor(private orderService : OrderService){}
+  constructor(private orderService : OrderService, 
+    private readonly toastr: ToastrService 
+  ){}
 
   submitOrder() {
-    this.orderService.createOrder(this.model)
+    this.orderService.createOrder(this.model).subscribe(order => {this.toastr.success("Order created, order number: " + order.id)});
+    
+    
 
   }
 }

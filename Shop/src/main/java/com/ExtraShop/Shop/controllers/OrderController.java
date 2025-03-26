@@ -56,9 +56,8 @@ public class OrderController extends ControllerBase {
         var token = header.split(" ")[1];
         if (!Authorization(tokenService, token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         var userId = tokenService.extractUserId(token);
+        order.setUserId(userId);
         return Handler(connection -> ResponseEntity.ok(orderRepository.addOrder(order, connection)));
-
-
     }
 }
 

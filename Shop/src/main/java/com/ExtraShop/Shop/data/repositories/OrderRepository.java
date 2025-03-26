@@ -52,7 +52,7 @@ public class OrderRepository  {
         int id = 0;
 
         String query = "INSERT INTO orders (user_id, total_amount, status_id, delivery_address, " +
-                "email, payment_type_id, phone) VALUES (" +
+                "email, paymant_type_id, phone) VALUES (" +
                 order.getUserId() + ", " +
                 calculateTotalAmount(order.getUserId(), connection) + ", " +
                 1 + ", '" +
@@ -60,17 +60,23 @@ public class OrderRepository  {
                 order.getEmail() + "', " +
                 order.getPaymentTypeId() + ", '" +
                 order.getPhone() + "')";
+        statement.executeUpdate(query);
         ResultSet result = statement.executeQuery("select lastval()");
         if (result.next()) {
             id = result.getInt(1);
         }
         var cartItems = cartRepository.GetCart(order.getUserId(), connection);
-        String insertOrderItemsQuery = "INSERT INTO order_items (order_id, product_id, quantity, price ) VALUE ";
+        String insertOrderItemsQuery = "INSERT INTO order_items (order_id, product_id, quantity, price ) VALUES ";
         for (CartItem item : cartItems) {
             insertOrderItemsQuery += "(" + id + "," + item.getProductId() + "," + item.getQuantity() + "," + item.getProduct().getPrice() * item.getQuantity() + "),";
         }
+        insertOrderItemsQuery = insertOrderItemsQuery.substring(0, insertOrderItemsQuery.length()-1) + ";";
         statement.executeUpdate(insertOrderItemsQuery);
+        for (CartItem item : cartItems) {
+            cartRepository.delete(order.getUserId(), item.getProductId(), connection);
+        }
         statement.close();
+
 
 
         return GetOrderById(id, connection);
@@ -78,19 +84,19 @@ public class OrderRepository  {
         public Order GetOrderById( int id, Connection connection) throws Exception {
             var preparedStatement = connection.createStatement();;
 
-                String query = "SELECT * FROM orders WHERE id = ?";
+                String query = "SELECT * FROM orders WHERE id = "+id;
                 ResultSet result = preparedStatement.executeQuery(query);
             var order = new Order();
 
                 if (result.next()) {
 
                     order.setId(result.getInt("id"));
-                    order.setUserId(result.getInt("userId"));
-                    order.setTotalAmount(result.getInt("totalAmount"));
-                    order.setStatusId(result.getInt("statusId"));
-                    order.setDeliveryAddress(result.getString("deliveryAddress"));
+                    order.setUserId(result.getInt("user_id"));
+                    order.setTotalAmount(result.getInt("total_amount"));
+                    order.setStatusId(result.getInt("status_id"));
+                    order.setDeliveryAddress(result.getString("delivery_address"));
                     order.setEmail(result.getString("email"));
-                    order.setPaymentTypeId(result.getInt("paymentTypeId"));
+                    order.setPaymentTypeId(result.getInt("paymant_type_id"));
                     order.setPhone(result.getString("phone"));
 
                     result.close();
@@ -99,6 +105,7 @@ public class OrderRepository  {
 
                 result.close();
                 preparedStatement.close();
+                order.setId(id);
                 return order;
 
             }
