@@ -41,19 +41,21 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <button class="btn" routerLink="admin">Admin</button>
+        </li>
       </ul>
 
       <!-- <button class="btn"> -->
       <i
         *ngIf="accoutnService.currentUser$ | async"
         routerLink="cart"
-
         class="bi bi-cart text-white fs-4 position-relative"
       >
         <span
           style="font-size: 12px"
           class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-secondary"
-          >{{ cartService.currentCartCount$|async }}</span
+          >{{ cartService.currentCartCount$ | async }}</span
         >
       </i>
       <!-- </button> -->

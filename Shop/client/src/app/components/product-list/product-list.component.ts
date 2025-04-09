@@ -1,5 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
+
 import { Product } from '../../models/product.model';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { environment } from '../../../environment/environment';

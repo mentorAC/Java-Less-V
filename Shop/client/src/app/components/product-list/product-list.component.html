@@ -1,4 +1,5 @@
-@for (item of data; track $index) {
-    <app-product-card [item]="item"></app-product-card>
-}
-
+<section class="product-list">
+  @for (item of data; track $index) {
+  <app-product-card [item]="item"></app-product-card>
+  }
+</section>

@@ -1,0 +1,48 @@
+<section class="product-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <img
+          [src]="
+            product.imageUrl == null
+              ? 'Product.placeholder.png'
+              : product.imageUrl
+          "
+          alt="{{ product.name }}"
+        />
+        <h1 class="text-center">{{ product.name }}</h1>
+        <p class="text-center">Цена: {{ product.price }}$</p>
+      </div>
+      <div class="col">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+          <li [ngbNavItem]="1">
+            <button ngbNavLink>Description</button>
+            <ng-template ngbNavContent>
+              <p class="text-center">{{ product.description }}</p>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <button ngbNavLink>Features</button>
+            <ng-template ngbNavContent>
+              <p></p>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3">
+            <button ngbNavLink>Reviews</button>
+            <ng-template ngbNavContent>
+              <div class="row">
+                <div class="col">
+                  <input type="text" name="Description" class="form-control" />
+                </div>
+                <div class="col">
+                  <input type="button" class="btn btn-primary" />
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+    </div>
+  </div>
+</section>

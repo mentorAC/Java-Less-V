@@ -37,8 +37,8 @@ ProductController(ProductRepository productRepository /*DbContextService dbConte
     public ResponseEntity AddProduct(@RequestBody Product product){
         return  Handler(connection ->{
             var productId = productRepository.addProduct(product, connection);
-            var newProduct = GetById(productId);
-            var response = ResponseEntity.ok(newProduct);
+            //var newProduct = GetById(productId);
+            var response = ResponseEntity.ok(productId);
             return response;
         });
     }
