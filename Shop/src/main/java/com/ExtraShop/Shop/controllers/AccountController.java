@@ -34,6 +34,7 @@ public class AccountController {
 
         try{
             var user = userRepository.getByUsername(account.getUsername());
+            var roles userRepository.getRolesByUserId(user.getId());
             if(PasswordHandler.checkPassword( user.getPasswordhash(), user.getSalt(), account.getPassword())){
                 var token = jwtTokenService.generateToken(user);
                 return ResponseEntity.ok(new LoginResponse(token));

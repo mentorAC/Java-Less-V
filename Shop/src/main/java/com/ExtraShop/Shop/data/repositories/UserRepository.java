@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.ExtraShop.Shop.models.User;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.LinkedList;
 
 @Service
 public class UserRepository {
@@ -38,5 +39,10 @@ result.next();
                      "VALUES ('"+username+"', '"+email+"', '"+phone+"', '"+passwordHash+"', '"+salt+"')");
         statement.close();
         connection.close();
+    }
+    public LinkedList <String> getRolesByUserId(int userid){
+        String query = "SELECT name from \"userrole\" \n" +
+                "join \"role\" on id=roleid\n" +
+                "WHERE userid = " + userid;
     }
 }

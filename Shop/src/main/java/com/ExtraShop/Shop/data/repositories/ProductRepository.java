@@ -73,7 +73,7 @@ public class ProductRepository {
 
         ResultSet result = statement.getGeneratedKeys();
         if (result.next()) {
-            id = result.getInt(1);
+            id = result.getInt("id");
         }
         result.close();
         statement.close();
