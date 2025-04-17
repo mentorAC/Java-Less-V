@@ -18,51 +18,50 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/account")
 @CrossOrigin(origins = "http://localhost:4200")
-public class AccountController {
+public class AccountController extends ControllerBase {
     private final JwtTokenService jwtTokenService;
     private final UserRepository userRepository;
 
     public AccountController(
             JwtTokenService tokenService,
-            UserRepository userRepository){
+            UserRepository userRepository) {
         this.jwtTokenService = tokenService;
         this.userRepository = userRepository;
     }
+
     @PostMapping("/login")
 
-    public ResponseEntity login(@RequestBody LoginRequest account){
+    public ResponseEntity login(@RequestBody LoginRequest account) {
 
-        try{
-            var user = userRepository.getByUsername(account.getUsername());
-            var roles userRepository.getRolesByUserId(user.getId());
-            if(PasswordHandler.checkPassword( user.getPasswordhash(), user.getSalt(), account.getPassword())){
-                var token = jwtTokenService.generateToken(user);
-                return ResponseEntity.ok(new LoginResponse(token));
-            }
+
+        return Handler(connection -> {
+            var user = userRepository.getByUsername(account.getUsername(),connection);
+            var roles = userRepository.getRolesByUserId(user.getId(),connection);
+
+        if (PasswordHandler.checkPassword(user.getPasswordhash(), user.getSalt(), account.getPassword())) {
+            var token = jwtTokenService.generateToken(user);
+            return ResponseEntity.ok(new LoginResponse(token, roles));
         }
-        catch(Exception ex){
-            System.out.println(ex);
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
+    });
     }
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterRequest register){
-        try {
-            var hashResult = PasswordHandler.hashPassword(register.getPassword());
-        userRepository.add(
-                register.getUsername(),
-                register.getPhone(),
-                register.getEmail(),
-                hashResult.getHash(),
-                hashResult.getSalt()
-                );
-        }catch (Exception ex){
-            System.out.println(ex);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
+
+           return Handler (connection->{
+               var hashResult = PasswordHandler.hashPassword(register.getPassword());
+               userRepository.add(
+                       register.getUsername(),
+                       register.getPhone(),
+                       register.getEmail(),
+                       hashResult.getHash(),
+                       hashResult.getSalt()
+               );
+               return new ResponseEntity<>(HttpStatus.OK);
+           });
+
     }
 
 }

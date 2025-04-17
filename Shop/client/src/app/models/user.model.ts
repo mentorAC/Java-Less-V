@@ -1,3 +1,4 @@
-export interface UserModel{
-    token: string;
+export interface UserModel {
+  token: string;
+  roles: string[];
 }
