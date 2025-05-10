@@ -1,4 +1,4 @@
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+<ul ngbNav #nav="ngbNav" class="nav-tabs">
   <li [ngbNavItem]="1">
     <button ngbNavLink>Product</button>
     <ng-template ngbNavContent>
@@ -42,5 +42,3 @@
 </ul>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
-
-<pre>Active: {{ active }}</pre>

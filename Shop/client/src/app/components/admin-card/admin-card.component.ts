@@ -9,6 +9,4 @@ import { ProductManagementComponent } from './product-management/product-managem
   templateUrl: './admin-card.component.html',
   styleUrl: './admin-card.component.css',
 })
-export class AdminCardComponent {
-  active = 1;
-}
+export class AdminCardComponent {}
