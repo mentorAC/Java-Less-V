@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { environment } from '../../../environment/environment';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,11 +16,9 @@ import { environment } from '../../../environment/environment';
 export class ProductListComponent {
   data: Product[] = [];
 
-  constructor(httpClient: HttpClient) {
-    httpClient
-      .get<Product[]>(environment.apiUrl + 'product/get-all-product')
-      .subscribe((data) => {
-        this.data = data;
-      });
+  constructor(private productservice: ProductService) {
+    productservice.getAllProduct().subscribe((data) => {
+      this.data = data;
+    });
   }
 }

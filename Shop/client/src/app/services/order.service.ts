@@ -10,6 +10,14 @@ export class OrderService {
   constructor(private httpClient: HttpClient) {}
 
   public createOrder(order: OrderModel) {
-    return this.httpClient.post<OrderModel>(environment.apiUrl + 'order/add', order);
+    return this.httpClient.post<OrderModel>(
+      environment.apiUrl + 'order/add',
+      order
+    );
+  }
+  public getAllOrder() {
+    return this.httpClient.get<OrderModel[]>(
+      environment.apiUrl + 'order/get-all-orders'
+    );
   }
 }

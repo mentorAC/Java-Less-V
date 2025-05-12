@@ -34,9 +34,11 @@ export class ProductManagementComponent {
     });
   }
   DeleteProduct(id: number) {
-    this.modal.open(ConfirmModalComponent);
-    this.productservice.deleteProduct(id).subscribe(() => {
-      this.data = this.data.filter((x) => x.id != id);
+    const OpenModal = this.modal.open(ConfirmModalComponent);
+    OpenModal.result.then(() => {
+      this.productservice.deleteProduct(id).subscribe(() => {
+        this.data = this.data.filter((x) => x.id != id);
+      });
     });
   }
 }

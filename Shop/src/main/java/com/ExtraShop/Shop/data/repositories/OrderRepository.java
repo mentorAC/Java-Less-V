@@ -29,16 +29,16 @@ public class OrderRepository  {
 
            Statement statement = connection.createStatement();
 
-            ResultSet result = statement.executeQuery("SELECT * FROM orders where userId ="+ userId);
+            ResultSet result = statement.executeQuery("SELECT * FROM orders where user_id ="+ userId);
             while (result.next()) {
                 var order = new Order();
                 order.setId(result.getInt("id"));
-                order.setUserId(result.getInt("userId"));
-                order.setTotalAmount(result.getInt("totalAmount"));
-                order.setStatusId(result.getInt("statusId"));
-                order.setDeliveryAddress(result.getString("deliveryAddress"));
+                order.setUserId(result.getInt("user_id"));
+                order.setTotalAmount(result.getInt("total_amount"));
+                order.setStatusId(result.getInt("status_id"));
+                order.setDeliveryAddress(result.getString("delivery_address"));
                 order.setEmail(result.getString("email"));
-                order.setPaymentTypeId(result.getInt("paymentTypeId"));
+                order.setPaymentTypeId(result.getInt("paymant_type_id"));
                 order.setPhone(result.getString("phone"));
                 orders.add(order);
             }

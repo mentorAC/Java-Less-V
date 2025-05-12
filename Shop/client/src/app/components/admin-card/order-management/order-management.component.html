@@ -1,0 +1,19 @@
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Payment type</th>
+      <th scope="col">Delivery adress</th>
+      <th scope="col">Total amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <th scope="row">{{ item.id }}</th>
+      <td>{{ item.id }}</td>
+      <td>{{ item.paymentTypeId }}</td>
+      <td>{{ item.deliveryAddress }}</td>
+      <td>{{ item.totalAmount }}</td>
+    </tr>
+  </tbody>
+</table>
