@@ -37,7 +37,6 @@ public class OrderController extends ControllerBase {
 
     @GetMapping("/get-all-orders")
     public ResponseEntity GetAllOrders(@RequestHeader(Constants.AUTH_HEADER) String header) {
-        var orders = new LinkedList<Order>();
         var token = header.split(" ")[1];
         if (!Authorization(tokenService, token)) return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         var userId = tokenService.extractUserId(token);

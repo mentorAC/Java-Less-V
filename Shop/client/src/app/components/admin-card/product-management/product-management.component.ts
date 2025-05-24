@@ -17,6 +17,7 @@ import { ConfirmModalComponent } from '../../modals/confirm-modal/confirm-modal.
 export class ProductManagementComponent {
   data: Product[] = [];
   model: Product = {} as Product;
+  IsEdit: boolean = false;
   CreateProduct() {
     this.productservice.createProduct(this.model).subscribe((product) => {
       this.model = {} as Product;
@@ -39,6 +40,26 @@ export class ProductManagementComponent {
       this.productservice.deleteProduct(id).subscribe(() => {
         this.data = this.data.filter((x) => x.id != id);
       });
+    });
+  }
+  editProduct(id: number) {
+    this.model = this.data.find((p) => p.id == id)!;
+    this.IsEdit = true;
+  }
+  updateProduct() {
+    this.productservice
+      .editProduct(this.model.id, this.model)
+      .subscribe((data) => {
+        this.toastr.success('Success Edit');
+        this.IsEdit = false;
+        this.model = {} as Product;
+      });
+  }
+  editCancel() {
+    this.model = {} as Product;
+    this.IsEdit = false;
+    this.productservice.getAllProduct().subscribe((data) => {
+      this.data = data;
     });
   }
 }

@@ -29,7 +29,7 @@ public class OrderRepository  {
 
            Statement statement = connection.createStatement();
 
-            ResultSet result = statement.executeQuery("SELECT * FROM orders where user_id ="+ userId);
+            ResultSet result = statement.executeQuery("SELECT * FROM orders JOIN paymant_types ON orders.paymant_type_id = paymant_types.id where user_id ="+ userId);
             while (result.next()) {
                 var order = new Order();
                 order.setId(result.getInt("id"));

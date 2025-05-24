@@ -23,4 +23,7 @@ export class ProductService {
   deleteProduct(id: number) {
     return this.http.delete(environment.apiUrl + `product/delete/${id}`);
   }
+  editProduct(id: number, product: Product) {
+    return this.http.put(environment.apiUrl + `product/update/${id}`, product);
+  }
 }
