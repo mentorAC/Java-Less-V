@@ -7,7 +7,7 @@ import { OrderService } from '../../../services/order.service';
 @Component({
   selector: 'app-order-management',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './order-management.component.html',
   styleUrl: './order-management.component.css',
 })
@@ -20,5 +20,8 @@ export class OrderManagementComponent {
   }
   constructor(private orderservice: OrderService) {
     this.GetOrder();
+  }
+  changeStatus(status_id: number, order_id: number) {
+    this.orderservice.changeStatus(order_id, status_id).subscribe();
   }
 }

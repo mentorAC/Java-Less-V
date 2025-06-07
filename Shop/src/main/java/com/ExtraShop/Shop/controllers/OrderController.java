@@ -58,6 +58,13 @@ public class OrderController extends ControllerBase {
         order.setUserId(userId);
         return Handler(connection -> ResponseEntity.ok(orderRepository.addOrder(order, connection)));
     }
+    @PutMapping("/changeStatus/{order_id}/{status_id}")
+    public ResponseEntity changeStatus(@PathVariable int order_id, @PathVariable int status_id){
+        return Handler(connection -> {
+                    orderRepository.changeStatus(order_id, status_id, connection);
+            return new ResponseEntity<>(HttpStatus.OK);
+        });
+    }
 }
 
 

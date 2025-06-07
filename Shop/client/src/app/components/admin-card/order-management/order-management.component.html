@@ -5,14 +5,26 @@
       <th scope="col">Payment type</th>
       <th scope="col">Delivery adress</th>
       <th scope="col">Total amount</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of data">
       <th scope="row">{{ item.id }}</th>
-      <td>{{ item.paymentTypeId }}</td>
+      <td>{{ item.type.name }}</td>
       <td>{{ item.deliveryAddress }}</td>
       <td>{{ item.totalAmount }}</td>
+      <td>
+        <select
+          (change)="changeStatus(item.statusId, item.id)"
+          [(ngModel)]="item.statusId"
+        >
+          <option value="1">В обробці</option>
+          <option value="2">Готовий до видачі</option>
+          <option value="3">Видано</option>
+        </select>
+        <!-- {{ item.status.name }} -->
+      </td>
     </tr>
   </tbody>
 </table>

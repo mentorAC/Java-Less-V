@@ -20,4 +20,10 @@ export class OrderService {
       environment.apiUrl + 'order/get-all-orders'
     );
   }
+  public changeStatus(order_id: number, status_id: number) {
+    return this.httpClient.put(
+      environment.apiUrl + `order/changeStatus/${order_id}/${status_id}`,
+      null
+    );
+  }
 }

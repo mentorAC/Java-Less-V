@@ -2,4 +2,9 @@
   @for (item of data; track $index) {
   <app-product-card [item]="item"></app-product-card>
   }
+  <ngb-pagination
+    class="d-flex justify-content-center"
+    [collectionSize]="70"
+    [(page)]="page"
+  />
 </section>

@@ -8,6 +8,7 @@ public class OrderPaymentType {
         this.id = id;
         this.name=name;
     }
+    public OrderPaymentType(){}
 
     public int getId() {
         return id;

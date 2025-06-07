@@ -2,6 +2,8 @@ package com.ExtraShop.Shop.data.repositories;
 
 import com.ExtraShop.Shop.models.CartItem;
 import com.ExtraShop.Shop.models.Order;
+import com.ExtraShop.Shop.models.OrderPaymentType;
+import com.ExtraShop.Shop.models.OrderStatus;
 import com.ExtraShop.Shop.utils.DbUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,12 @@ public class OrderRepository  {
 
            Statement statement = connection.createStatement();
 
-            ResultSet result = statement.executeQuery("SELECT * FROM orders JOIN paymant_types ON orders.paymant_type_id = paymant_types.id where user_id ="+ userId);
+            ResultSet result = statement.executeQuery(
+                    "SELECT * , paymant_types.name as payment_type_name, order_statuses.name as order_statuses_name FROM orders " +
+                            "JOIN paymant_types ON orders.paymant_type_id = paymant_types.id " +
+                            "JOIN order_statuses ON order_statuses.id = orders.status_id " +
+                            "where user_id ="+ userId +
+                            " order by orders.id");
             while (result.next()) {
                 var order = new Order();
                 order.setId(result.getInt("id"));
@@ -40,12 +47,26 @@ public class OrderRepository  {
                 order.setEmail(result.getString("email"));
                 order.setPaymentTypeId(result.getInt("paymant_type_id"));
                 order.setPhone(result.getString("phone"));
+                OrderPaymentType orderPaymentType = new OrderPaymentType();
+                orderPaymentType.setId(result.getInt("paymant_type_id"));
+                orderPaymentType.setName(result.getString("payment_type_name"));
+                OrderStatus orderStatus = new OrderStatus();
+                orderStatus.setId(result.getInt("status_id"));
+                orderStatus.setName(result.getString("order_statuses_name"));
+                order.setStatus(orderStatus);
+                order.setType(orderPaymentType);
                 orders.add(order);
             }
 
             result.close();
             statement.close();
            return orders;
+}
+public void changeStatus( int order_id, int status_id, Connection connection) throws Exception{
+    Statement statement = connection.createStatement();
+        String query = " UPDATE orders SET status_id = " + status_id + " WHERE id = " + order_id ;
+    statement.executeUpdate(query);
+        statement.close();
 }
     public Order addOrder(Order order, Connection connection) throws Exception {
         Statement statement = connection.createStatement();
