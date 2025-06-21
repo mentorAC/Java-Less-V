@@ -1,12 +1,10 @@
 .product-list {
-    background-color: #222;
-    color: #e0e0e0;
-  }
-  .page-link{
-    background-color: white;
-
-  }
-
-  :root{
-    --bs-pagination-bg: white;
-  }
+  background-color: #222;
+  color: #e0e0e0;
+}
+.page-link{
+  background-color: white !important;
+} 
+:root{
+  --bs-pagination-bg: white;
+}

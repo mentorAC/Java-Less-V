@@ -35,6 +35,7 @@ public class ProductRepository {
             product.setDescription(result.getString("description"));
             product.setPrice(result.getDouble("price"));
             product.setQuantity(result.getInt("quantity"));
+            product.setPhotoURL(result.getString( "photoURL"));
             products.add(product);
         }
         result.close();
