@@ -15,25 +15,28 @@ import { OrderModel } from '../../models/order.model';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../services/order.service';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports :[FormsModule],
+  imports: [FormsModule],
 
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+  styleUrls: ['./checkout.component.css'],
 })
-export class CheckoutComponent  {
-model : OrderModel = {} as OrderModel
-  constructor(private orderService : OrderService, 
-    private readonly toastr: ToastrService 
-  ){}
+export class CheckoutComponent {
+  model: OrderModel = {} as OrderModel;
+  constructor(
+    private orderService: OrderService,
+    private readonly cartService: CartService,
+    private readonly toastr: ToastrService
+  ) {}
 
   submitOrder() {
-    this.orderService.createOrder(this.model).subscribe(order => {this.toastr.success("Order created, order number: " + order.id)});
-    
-    
-
+    this.orderService.createOrder(this.model).subscribe((order) => {
+      this.toastr.success('Order created, order number: ' + order.id);
+      this.cartService.setCartCount(0);
+    });
   }
 }
